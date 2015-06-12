@@ -112,6 +112,16 @@ class FileNameTests(unittest.TestCase):
 		self.assertEqual(glyphNameToFileName('f_f_i', None), "f_f_i.glif")
 		
 
+	def testCaseInsensitiveDefaultFileNameScheme(self):
+		caseInsensitiveNames = []
+		caseSensitiveNames = ['LJ', 'LJ_', 'L_J', 'L_j', 'Lj', 'Lj_', '_LJ',
+			'_Lj', '_lJ', '_lj', 'lJ', 'lJ_', 'l_J', 'l_j', 'lj', 'lj_']
+		for glyphName in caseSensitiveNames:
+			newName = glyphNameToFileName(glyphName, None)
+			lowerNewName = newName.lower()
+			self.assertTrue(lowerNewName not in caseInsensitiveNames)
+			caseInsensitiveNames.append(lowerNewName)
+
 	def testShortFileNameScheme(self):
 		print "testShortFileNameScheme"
 		self.assertEqual(glyphNameToShortFileName("a", None), "a.glif")
