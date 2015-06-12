@@ -100,22 +100,24 @@ class FileNameTests(unittest.TestCase):
 	def testDefaultFileNameScheme(self):
 		self.assertEqual(glyphNameToFileName("a", None), "a.glif")
 		self.assertEqual(glyphNameToFileName("A", None), "A_.glif")
-		self.assertEqual(glyphNameToFileName("Aring", None), "Aring_.glif")
-		self.assertEqual(glyphNameToFileName("F_A_B", None), "F__A__B_.glif")
+		self.assertEqual(glyphNameToFileName("Aring", None), "A_ring.glif")
+		self.assertEqual(glyphNameToFileName("F_A_B", None), "F___A___B_.glif")
 		self.assertEqual(glyphNameToFileName("A.alt", None), "A_.alt.glif")
-		self.assertEqual(glyphNameToFileName("A.Alt", None), "A_.Alt_.glif")
+		self.assertEqual(glyphNameToFileName("A.Alt", None), "A_.A_lt.glif")
 		self.assertEqual(glyphNameToFileName(".notdef", None), "_notdef.glif")
-		self.assertEqual(glyphNameToFileName("T_H", None), "T__H_.glif")
-		self.assertEqual(glyphNameToFileName("T_h", None), "T__h.glif")
-		self.assertEqual(glyphNameToFileName("t_h", None), "t_h.glif")
-		self.assertEqual(glyphNameToFileName('F_F_I', None), "F__F__I_.glif")
-		self.assertEqual(glyphNameToFileName('f_f_i', None), "f_f_i.glif")
-		
+		self.assertEqual(glyphNameToFileName("_", None), "__.glif")
+		self.assertEqual(glyphNameToFileName("LJ", None), "L_J_.glif")
+		self.assertEqual(glyphNameToFileName("Lj", None), "L_j.glif")
+		self.assertEqual(glyphNameToFileName("lJ", None), "lJ_.glif")
+		self.assertEqual(glyphNameToFileName("T_H", None), "T___H_.glif")
+		self.assertEqual(glyphNameToFileName("T_h", None), "T___h.glif")
+		self.assertEqual(glyphNameToFileName("t_h", None), "t__h.glif")
+		self.assertEqual(glyphNameToFileName('F_F_I', None), "F___F___I_.glif")
+		self.assertEqual(glyphNameToFileName('f_f_i', None), "f__f__i.glif")
 
 	def testCaseInsensitiveDefaultFileNameScheme(self):
 		caseInsensitiveNames = []
-		caseSensitiveNames = ['LJ', 'LJ_', 'L_J', 'L_j', 'Lj', 'Lj_', '_LJ',
-			'_Lj', '_lJ', '_lj', 'lJ', 'lJ_', 'l_J', 'l_j', 'lj', 'lj_']
+		caseSensitiveNames = ['LJ', 'Lj', 'l_j', 'ABc', 'AbC']
 		for glyphName in caseSensitiveNames:
 			newName = glyphNameToFileName(glyphName, None)
 			lowerNewName = newName.lower()

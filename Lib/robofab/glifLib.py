@@ -54,42 +54,35 @@ class Glyph:
 
 def glyphNameToFileName(glyphName, glyphSet):
 	"""Default algorithm for making a file name out of a glyph name.
-	This one has limited support for case insensitive file systems:
-	it assumes glyph names are not case sensitive apart from the first
-	character:
-		'a'     -> 'a.glif'
-		'A'     -> 'A_.glif'
-		'A.alt' -> 'A_.alt.glif'
-		'A.Alt' -> 'A_.Alt.glif'
-		'T_H'   -> 'T__H_.glif'
-		'T_h'   -> 'T__h.glif'
-		't_h'   -> 't_h.glif'
-		'F_F_I' -> 'F__F__I_.glif'
-		'f_f_i' -> 'f_f_i.glif'
-
+	Add an underscore after an uppercase letter for case insensitive file
+	systems. Escape underscore with underscore. Replace initial period with
+	underscore.
+		'.notedef' -> '_notdef'
+		'a'        -> 'a.glif'
+		'A'        -> 'A_.glif'
+		'A.alt'    -> 'A_.alt.glif'
+		'A.Alt'    -> 'A_.A_lt.glif'
+		'T_H'      -> 'T___H_.glif'
+		'T_h'      -> 'T___h.glif'
+		't_h'      -> 't__h.glif'
+		'LJ'       -> 'L_J_.glif'
+		'Lj'       -> 'L_j.glif'
+		'lj'       -> 'lj.glif'
+		'F_F_I'    -> 'F___F___I_.glif'
+		'f_f_i'    -> 'f__f__i.glif'
 	"""
+	# add underscore after uppercase, or escape underscores
+	n = ''
+	for c in glyphName:
+		if c.isupper() or c == "_":
+			n += c + "_"
+		else:
+			n += c
+	glyphName = n
 	if glyphName.startswith("."):
 		# some OSes consider filenames such as .notdef "hidden"
 		glyphName = "_" + glyphName[1:]
-	parts = glyphName.split(".")
-	if parts[0].find("_")!=-1:
-		# it is a compound name, check the separate parts
-		bits = []
-		for p in parts[0].split("_"):
-			if p != p.lower():
-				bits.append(p+"_")
-				continue
-			bits.append(p)
-		parts[0] = "_".join(bits)
-	else:
-		# it is a single name
-		if parts[0] != parts[0].lower():
-			parts[0] += "_"
-	for i in range(1, len(parts)):
-		# resolve additional, period separated parts, like alt / Alt
-		if parts[i] != parts[i].lower():
-			parts[i] += "_"
-	return ".".join(parts) + ".glif"
+	return glyphName + ".glif"
 
 
 

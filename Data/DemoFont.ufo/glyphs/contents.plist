@@ -9,7 +9,7 @@
 	<key>F</key>
 	<string>F_.glif</string>
 	<key>F_A_B</key>
-	<string>F__A__B_.glif</string>
+	<string>F___A___B_.glif</string>
 	<key>G</key>
 	<string>G_.glif</string>
 	<key>O</key>
@@ -19,13 +19,13 @@
 	<key>a</key>
 	<string>a.glif</string>
 	<key>a#condensed_bold</key>
-	<string>a#condensed_bold.glif</string>
+	<string>a#condensed__bold.glif</string>
 	<key>a#condensed_light</key>
-	<string>a#condensed_light.glif</string>
+	<string>a#condensed__light.glif</string>
 	<key>a#wide_bold</key>
-	<string>a#wide_bold.glif</string>
+	<string>a#wide__bold.glif</string>
 	<key>a#wide_light</key>
-	<string>a#wide_light.glif</string>
+	<string>a#wide__light.glif</string>
 	<key>testglyph1</key>
 	<string>testglyph1.glif</string>
 	<key>testglyph1.reversed</key>
