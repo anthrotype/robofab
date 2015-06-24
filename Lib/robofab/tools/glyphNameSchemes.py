@@ -39,3 +39,21 @@ def glyphNameToShortFileName(glyphName, glyphSet):
 			candidate = n[:MAXLEN - len(h + ext + str(count))] + h + str(count) + ext
 			count += 1
 	return candidate
+
+
+def glyphNameToUFO3FileName(glyphName, glyphSet):
+	"""
+	Wrapper around the userNameToFileName function from UFO3's filenames.py
+	"""
+	from filenames import userNameToFileName
+	if glyphSet is not None:
+		existing = [name.lower() for name in glyphSet.contents.values()]
+	else:
+		existing = []
+	if not isinstance(glyphName, unicode):
+		try:
+			new = unicode(glyphName)
+			glyphName = new
+		except UnicodeDecodeError:
+			pass
+	return userNameToFileName(glyphName, existing=existing, suffix=".glif")
