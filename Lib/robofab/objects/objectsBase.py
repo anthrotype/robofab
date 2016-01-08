@@ -1944,9 +1944,7 @@ class BaseContour(RBaseObject):
 			pen.qCurveTo(*pts)
 			pen.closePath()
 		else:
-			if firstType == MOVE and (firstOn.x, firstOn.y) == (lastOn.x, lastOn.y):
-				closed = True
-			elif firstType == MOVE:
+			if firstType == MOVE and (firstOn.x, firstOn.y) != (lastOn.x, lastOn.y):
 				closed = False
 			else:
 				closed = True
