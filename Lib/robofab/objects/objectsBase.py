@@ -1946,6 +1946,8 @@ class BaseContour(RBaseObject):
 		else:
 			if firstType == MOVE and (firstOn.x, firstOn.y) == (lastOn.x, lastOn.y):
 				closed = True
+			elif firstType == MOVE:
+				closed = False
 			else:
 				closed = True
 			for segment in self.segments:
